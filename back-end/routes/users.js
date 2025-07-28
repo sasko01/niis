@@ -26,15 +26,21 @@ users.post("/login", async (req, res) => {
         console.log("Please enter Email and Password!")
     }
     res.end()
-})//login
+})//login popravi imena spremenljivk!
 
 
-users.post("/register", async (req, res) => {
-    let [email, password, name, phone, place] = req.body 
-    let isUserComplete = email && password && name && phone && place
+users.post("/register", async (req, res) => { 
+    let Email = req.body.Email
+    let Geslo = req.body.Geslo
+    let Ime_in_priimek = req.body.Ime_in_priimek
+    let Tel_st = req.body.Tel_st
+    let Lokacija = req.body.Lokacija
+
+    let isUserComplete = Email && Geslo && Ime_in_priimek && Tel_st && Lokacija
+    
     if (isUserComplete) {
         try {
-            let queryResult = await db.addUser(name, phone, email, password, place)
+            let queryResult = await db.addUser(Ime_in_priimek, Tel_st, Email, Geslo, Lokacija)
             if (queryResult.affectedRows) {
                 console.log("New user added")
             }
@@ -46,3 +52,5 @@ users.post("/register", async (req, res) => {
     }
     res.end()
 })//register
+
+module.exports = users

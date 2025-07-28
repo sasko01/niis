@@ -31,13 +31,18 @@ event.get("/:d_id", async (req, res, next) => {
 })//oneEvent
 
 event.post("/", async (req, res, next) => {
-    let [Ime_dogodka, Vrsta_dogodka, Datum_in_ura, Lokacija, Samo_za_clane, Druge_info] = req.body
-    let isAcompleteEvent = Ime_dogodka && Vrsta_dogodka && Datum_in_ura && Lokacija && Samo_za_clane && Druge_info
+    let Ime_dogodka = req.body.Ime_dogodka
+    let Vrsta_dogodka = req.body.Vrsta_dogodka
+    let Datum_in_ura = req.body.Datum_in_ura
+    let Lokacija = req.body.Lokacija
+    let Druge_info = req.body.Druge_info
+    
+    let isAcompleteEvent = Ime_dogodka && Vrsta_dogodka && Datum_in_ura && Lokacija && Druge_info
 
     if (isAcompleteEvent) {
         try 
         {
-            let queryResult = await db.createEventAdmin (Ime_dogodka, Vrsta_dogodka, Datum_in_ura, Lokacija, Samo_za_clane, Druge_info)
+            let queryResult = await db.createEvent (Ime_dogodka, Vrsta_dogodka, Datum_in_ura, Lokacija, Druge_info)
             if (queryResult.affectedRows) {
                 console.log ("New Event added successfully")
             }//if

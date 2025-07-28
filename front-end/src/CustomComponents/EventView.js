@@ -20,11 +20,6 @@ class EventView extends Component {
       this.setState ({
         events:res.data
       })
-      .catch (err => {
-        if (err) {
-          console.log("Error: " + err.message)
-        }
-      })
     })
   }
 
@@ -35,7 +30,7 @@ class EventView extends Component {
         {data.length > 0 ? 
           data.map (d => {
             return (
-              <div className="col">
+              <div className="col" key={d.d_id}>
                 <div className="card">
                   <div className="card-body">
                     <h5 className="card-title">{d.Ime_dogodka}</h5>

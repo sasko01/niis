@@ -27,10 +27,10 @@ dataPool.oneEvent = (d_id) => {
     })//promise 
 }//oneEvent
 
-dataPool.createEventAdmin = (Ime_dogodka, Vrsta_dogodka, Datum_in_ura, Lokacija, Samo_za_clane, Druge_info) => {
+dataPool.createEvent = (Ime_dogodka, Vrsta_dogodka, Datum_in_ura, Lokacija, Druge_info) => {
     return new Promise ((resolve, reject) => {
-        conn.query(`INSERT INTO Dogodek (Ime_dogodka, Vrsta_dogodka, Datum_in_ura, Lokacija, Samo_za_clane, Druge_info) 
-            VALUES (?,?,?,?,?;')`, [Ime_dogodka, Vrsta_dogodka, Datum_in_ura, Lokacija, Samo_za_clane, Druge_info], (err, res) => {
+        conn.query(`INSERT INTO Dogodek (Ime_dogodka, Vrsta_dogodka, Datum_in_ura, Lokacija, Druge_info) 
+            VALUES (?,?,?,?,?)`, [Ime_dogodka, Vrsta_dogodka, Datum_in_ura, Lokacija, Druge_info], (err, res) => {
                 if (err) {return reject(err)}
                 return resolve(res)
         })//query

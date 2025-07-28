@@ -12,14 +12,14 @@ class App extends Component {
     super(props);
     this.state = {
       currentPage: "none",
-      eventId: 0,
+      event: 0,
     }; //this.state
   } //constructor
 
   QSetView = (obj) => {
     this.setState({
       currentPage: obj.page,
-      eventId: obj.id || 0,
+      event: obj.id || 0,
     });
   }; //QSetView
 
@@ -33,13 +33,13 @@ class App extends Component {
       case "events":
         return <EventView QIDfromChild={this.QSetView} />;
       case "addEvent":
-        return <AddEventView />;
+        return <AddEventView QViewFromChild={this.QSetView} />;
       case "signUp":
         return <SignUpView QUserFromChild={this.QHandleUserLog} />;
       case "login":
         return <LoginView QUserFromChild={this.QHandleUserLog} />;
       case "singleEvent":
-        return <SingleEventView QViewFromChild={this.QSetView} />;
+        return <SingleEventView QViewFromChild={this.QSetView} data={this.state.event} />;
       default:
         return <HomeView />;
     }
@@ -50,6 +50,7 @@ class App extends Component {
   }; //za login/signup: treba spremenit
 
   render() {
+    console.log(this.state)
     return (
       <div id="APP" className="container">
         <div id="menu" className="row">
