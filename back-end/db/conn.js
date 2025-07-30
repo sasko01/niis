@@ -38,9 +38,9 @@ dataPool.createEvent = (Ime_dogodka, Vrsta_dogodka, Datum_in_ura, Lokacija, Drug
 }//createEventAdmin
 
 //UPORABNIK
-dataPool.authUser = (username) => {
+dataPool.authUser = (Email) => {
     return new Promise ((resolve, reject) => {
-        conn.query(`SELECT * FROM Uporabnik WHERE Email = ?`, username, (err, res) => {
+        conn.query(`SELECT * FROM Uporabnik WHERE Email = ?`, Email, (err, res) => {
             if (err) {return reject(err)}
             return resolve(res) 
         })//query

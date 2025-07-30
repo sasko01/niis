@@ -6,6 +6,7 @@ import HomeView from "./CustomComponents/HomeView";
 import LoginView from "./CustomComponents/LoginView";
 import SignUpView from "./CustomComponents/SignUpView";
 import SingleEventView from "./CustomComponents/SingleEventView";
+import axios from "axios";
 
 class App extends Component {
   constructor(props) {
@@ -13,6 +14,7 @@ class App extends Component {
     this.state = {
       currentPage: "none",
       event: 0,
+      userStatus:{logged:false}
     }; //this.state
   } //constructor
 
@@ -33,11 +35,11 @@ class App extends Component {
       case "events":
         return <EventView QIDfromChild={this.QSetView} />;
       case "addEvent":
-        return <AddEventView QViewFromChild={this.QSetView} />;
+        return state.userStatus.logged ? <AddEventView QViewFromChild={this.QSetView} /> : "Not logged in";
       case "signUp":
-        return <SignUpView QUserFromChild={this.QHandleUserLog} />;
+        return <SignUpView QUserFromChild={this.QHandleUserLog} />;// QHandleUserLog postalo QSetUser (v TUT)!
       case "login":
-        return <LoginView QUserFromChild={this.QHandleUserLog} />;
+        return <LoginView QUserFromChild={this.QSetUser} />;
       case "singleEvent":
         return <SingleEventView QViewFromChild={this.QSetView} data={this.state.event} />;
       default:
@@ -47,7 +49,20 @@ class App extends Component {
 
   QHandleUserLog = (obj) => {
     this.QSetView({ page: "home" });
-  }; //za login/signup: treba spremenit
+  }; //za login/signup: treba spremenit. Prej QHandleUserLog;spremenu v QSetUser
+
+  QSetUser = (obj) => {
+    this.setState({
+      userStatus:{logged:true, user:obj}
+    })
+  };
+
+  componentDidMount () {
+    axios.get("http://88.200.63.148:3947/users/login")
+    .then(res => {
+      console.log(res)
+    })
+  }//za login
 
   render() {
     console.log(this.state)

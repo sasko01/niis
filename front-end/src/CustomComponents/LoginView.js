@@ -1,4 +1,5 @@
 import { Component } from "react";
+import axios from "axios";
 
 class LoginView extends Component {
 
@@ -12,14 +13,30 @@ class LoginView extends Component {
   }
 
   QGetTextFromField = (e) => {
-    this.setState({
-      user: { [e.target.name]: e.target.value },
-    });
-  };
+  this.setState(prevState => ({
+    user: {
+      ...prevState.user,
+      [e.target.name]: e.target.value
+    }
+  }));
+};
 
-  QSendUserToParent = (state) => {
-    this.props.QUserFromChild(state.user);
-  };
+  QSendUser2Parent = (obj) => {
+    this.props.QUserFromChild(obj);
+  };//Prej je blo QSendUserToParent; spremenu v QSendUser2Parent
+
+  QPostLogin = () => {
+    let user = this.state.user
+    axios.post("http://88.200.63.148:3947/users/login", {
+      Email: user.Email,
+      Geslo: user.Geslo
+    }, {withCredentials:true})
+    .then(res => {
+      console.log("Sent to the server")
+      console.log(res.data)
+      this.QSendUser2Parent(res.data)
+    })
+  }
 
   render() {
     return (
@@ -35,10 +52,10 @@ class LoginView extends Component {
       >
         <form style={{ margin: "20px" }}>
           <div className="mb-3">
-            <label className="form-label">Username</label>
+            <label className="form-label">Email</label>
             <input
               onChange={(e) => this.QGetTextFromField(e)}
-              name="username"
+              name="Email"
               type="text"
               className="form-control"
               id="exampleInputEmail1"
@@ -48,7 +65,7 @@ class LoginView extends Component {
             <label className="form-label">Password</label>
             <input
               onChange={(e) => this.QGetTextFromField(e)}
-              name="password"
+              name="Geslo"
               type="password"
               className="form-control"
               id="exampleInputPassword1"
@@ -56,11 +73,11 @@ class LoginView extends Component {
           </div>
         </form>
         <button
-          onClick={() => this.QSendUserToParent(this.state)}
+          onClick={() => this.QPostLogin(this.state)}
           style={{ margin: "10px" }}
           className="btn btn-primary bt"
         >
-          Sign up
+          Login 
         </button>
       </div>
     );

@@ -1,17 +1,44 @@
 const express = require("express")
 const users = express.Router()
 const db = require('../db/conn')
+const session = require("express-session")
 
+
+users.use(session({
+    secret: "somesecret",
+    resave:false,
+    saveUninitialized:false,
+    cookies:{
+        expires: 60*2
+    }
+}))
+
+users.get("/login", (req, res) => {
+    if(req.session.user) {
+        res.send({
+            logged:true,
+            user:req.session.user
+        })
+    } else {
+        res.send({
+            logged:false
+        })
+    }
+})
 
 users.post("/login", async (req, res) => {
-    let [email, password] = req.body 
-    let isUserComplete = email && password
+    let Email = req.body.Email
+    let Geslo =  req.body.Geslo
+    let isUserComplete = Email && Geslo
     if (isUserComplete) {
         try {
-            let queryResult = await db.authUser(email)
+            let queryResult = await db.authUser(Email)
             if (queryResult.length > 0) {
-                if (password == queryResult[0].Geslo) {
-                    console.log(queryResult)
+                if (Geslo == queryResult[0].Geslo) {
+                    console.log(queryResult[0])
+                    req.session.user = queryResult[0]
+                    res.json(queryResult[0].Email)
+                    console.log("Valid Session")
                 } else {
                     console.log("Incorrect password!")
                 }

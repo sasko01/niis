@@ -2,6 +2,7 @@ const express = require("express")
 const app = express()
 const dotenv = require("dotenv")
 const cors = require("cors")
+const cookieParser = require("cookie-parser")
 dotenv.config()
 
 const port = process.env.PORT || 3947
@@ -9,6 +10,7 @@ const event = require("./routes/event")
 const users = require("./routes/users")
 
 
+app.use(cookieParser("somesecret"))
 app.use(express.json())
 app.use(express.urlencoded({extended: true}))
 app.use(cors({
@@ -16,9 +18,10 @@ app.use(cors({
     methods: ["GET", "POST"],
     credentials: true
 }))
-//origin: ["http://88.200.63.148:6493"],
-//    methods: ["GET", "POST"],
-//    credentials: true -> to gre v {} za restrikcijo kdo lahko vidi: evente lahko vidijo vsi
+// -> to gre v {} za restrikcijo kdo lahko vidi: evente lahko vidijo vsi
+
+
+
 
 
 app.get("/", (req, res) => {
