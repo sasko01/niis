@@ -24,19 +24,43 @@ class LoginView extends Component {
   QSendUser2Parent = (obj) => {
     this.props.QUserFromChild(obj);
   };//Prej je blo QSendUserToParent; spremenu v QSendUser2Parent
+  
+  QSetViewInParent = (obj) => {
+    this.props.QIDfromChild(obj);
+  }; //dodal
 
+  
   QPostLogin = () => {
-    let user = this.state.user
-    axios.post("http://88.200.63.148:3947/users/login", {
-      Email: user.Email,
-      Geslo: user.Geslo
-    }, {withCredentials:true})
+  let user = this.state.user;
+  axios.post("http://88.200.63.148:3947/users/login", {
+    Email: user.Email,
+    Geslo: user.Geslo
+  }, { withCredentials: true })
+  .then(res => {
+    console.log("Sent to the server");
+    console.log(res.data);
+    if (res.data.success) {
+      this.QSendUser2Parent(res.data.user);
+      this.QSetViewInParent({ page: "loggedUserView" });
+    } else {
+      alert("Login failed: " + (res.data.message || "Unknown error"));
+    }
+  })
+  .catch(err => {
+    console.error("Login error:", err);
+    alert("Login error: Check console");
+  });
+} //updated za loggedUserView 
+
+  componentDidMount() {
+  axios.get("http://88.200.63.148:3947/users/login", { withCredentials: true })
     .then(res => {
-      console.log("Sent to the server")
-      console.log(res.data)
-      this.QSendUser2Parent(res.data)
-    })
-  }
+      console.log("Checked login status:", res.data);
+      if (res.data.logged) {
+        this.QSendUser2Parent(res.data); // Send session user to parent
+      }
+    });
+}
 
   render() {
     return (
@@ -73,7 +97,7 @@ class LoginView extends Component {
           </div>
         </form>
         <button
-          onClick={() => this.QPostLogin(this.state)}
+          onClick={ this.QPostLogin} // updated za loggedUserView
           style={{ margin: "10px" }}
           className="btn btn-primary bt"
         >

@@ -6,13 +6,16 @@ import HomeView from "./CustomComponents/HomeView";
 import LoginView from "./CustomComponents/LoginView";
 import SignUpView from "./CustomComponents/SignUpView";
 import SingleEventView from "./CustomComponents/SingleEventView";
+import LoggedUserView from "./CustomComponents/LoggedUserView";
 import axios from "axios";
+
+import backgroundImage from './images/ni_background.jpg';
 
 class App extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      currentPage: "none",
+      currentPage: "none",  
       event: 0,
       userStatus:{logged:false}
     }; //this.state
@@ -39,9 +42,15 @@ class App extends Component {
       case "signUp":
         return <SignUpView QUserFromChild={this.QHandleUserLog} />;// QHandleUserLog postalo QSetUser (v TUT)!
       case "login":
-        return <LoginView QUserFromChild={this.QSetUser} />;
+        return <LoginView QUserFromChild={this.QSetUser}  QIDfromChild={this.QSetView} />;
       case "singleEvent":
-        return <SingleEventView QViewFromChild={this.QSetView} data={this.state.event} />;
+        return <SingleEventView 
+                  QViewFromChild={this.QSetView} 
+                  data={this.state.event} />;
+      case "loggedUserView":
+        return <LoggedUserView 
+                  QViewFromChild={this.QSetView} 
+                  user={this.state.userStatus.user} />;
       default:
         return <HomeView />;
     }
@@ -67,6 +76,15 @@ class App extends Component {
   render() {
     console.log(this.state)
     return (
+      <div
+      style={{
+        backgroundImage: `url(${backgroundImage})`,
+        backgroundSize: 'cover',
+        backgroundRepeat: 'no-repeat',
+        backgroundPosition: 'center',
+        minHeight: '100vh',
+      }}
+    >
       <div id="APP" className="container">
         <div id="menu" className="row">
           <nav className="navbar navbar-expand-lg navbar-dark bg-primary">
@@ -124,28 +142,45 @@ class App extends Component {
                       Add event
                     </a>
                   </li>
+                  
+                  {!this.state.userStatus.logged && (
+                    <>
+                      <li className="nav-item">
+                        <a onClick={() => this.QSetView({ page: "signUp" })} className="nav-link" href="#">
+                          Sign up
+                        </a>
+                      </li>
+                      <li className="nav-item">
+                        <a onClick={() => this.QSetView({ page: "login" })} className="nav-link" href="#">
+                          Login
+                        </a>
+                      </li>
+                    </>
+                  )}
+                  
+                  {this.state.userStatus.logged && (
+                    <li className="nav-item">
+                      <a
+                        onClick={() =>
+                          this.setState({ userStatus: { logged: false }, currentPage: "home" })
+                        }
+                        className="nav-link"
+                        href="#"
+                      >
+                        Logout
+                      </a>
+                    </li>
+                  )}
 
-                  <li className="nav-item">
-                    <a
-                      onClick={() => this.QSetView({ page: "signUp" })}
-                      className="nav-link "
-                      href="#"
-                    >
-                      Sign up
-                    </a>
-                  </li>
-
-                  <li className="nav-item">
-                    <a
-                      onClick={() => this.QSetView({ page: "login" })}
-                      className="nav-link "
-                      href="#"
-                    >
-                      Login
-                    </a>
-                  </li>
                 </ul>
               </div>
+
+              {this.state.userStatus.logged && this.state.userStatus.user && (
+                  <span className="navbar-text text-white ms-auto">
+                    {this.state.userStatus.user.Ime_priimek}
+                  </span>
+              )}
+              
             </div>
           </nav>
         </div>
@@ -153,6 +188,7 @@ class App extends Component {
         <div id="viewer" className="row container">
           {this.QGetView(this.state)}
         </div>
+      </div>
       </div>
     );
   } //render

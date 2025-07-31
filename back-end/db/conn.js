@@ -57,6 +57,19 @@ dataPool.addUser = (Ime_priimek, Tel_st, Email, Geslo, Lokacija) => {
     })//promise
 }//addUser
 
+dataPool.setUserAsMember = (Email) => {
+    return new Promise((resolve, reject) => {
+        conn.query(
+            `UPDATE Uporabnik SET Clan = 1 WHERE Email = ?`,
+            [Email],
+            (err, res) => {
+                if (err) return reject(err);
+                return resolve(res);
+            }
+        );
+    });
+};
+
 
 conn.connect(err => {
     if(err){

@@ -12,7 +12,7 @@ class EventView extends Component {
 
   QSetViewInParent = (obj) => {
     this.props.QIDfromChild(obj);
-  }; //QSetViewInParent
+  }; 
 
   componentDidMount () {
     axios.get("http://88.200.63.148:3947/event")
