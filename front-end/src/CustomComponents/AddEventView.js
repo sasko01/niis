@@ -73,7 +73,7 @@ class AddEventView extends Component {
         </div>
         <button 
         onClick={() => this.QPostEvent()}
-        className="btn btn-primary bt" style={{ margin: "10px" }}>
+        className="btn btn-outline-warning" style={{ margin: "10px" }}>
           Submit
         </button>
       </div>

@@ -37,7 +37,7 @@ class SingleEventView extends Component {
           </p>
           <button
             onClick={() => this.QSetViewInParent({ page: "events" })} //menjat z gumbom za kupit listke
-            className="btn btn-primary"
+            className="btn btn-outline-warning"
           >
             Back to events (add Get tix!)
           </button>

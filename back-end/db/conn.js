@@ -70,6 +70,27 @@ dataPool.setUserAsMember = (Email) => {
     });
 };
 
+dataPool.addOrganization = (u_id, Ime, Tip, Druge_info) => {
+    return new Promise ((resolve, reject) => {
+        conn.query(`INSERT INTO Drustvo (u_id, Ime, Tip, Druge_info)
+            VALUES (?,?,?,?)`, [u_id, Ime, Tip, Druge_info],
+            (err, res) => {
+                if (err) {return reject(err)}
+                return resolve(res)
+        })
+    })
+}
+
+dataPool.checkIfUserHasDrustvo = (u_id) => {
+  return new Promise((resolve, reject) => {
+    conn.query(`SELECT * FROM Drustvo WHERE u_id = ?`, [u_id], (err, res) => {
+      if (err) return reject(err);
+      resolve(res);
+    });
+  });
+};
+
+
 
 conn.connect(err => {
     if(err){

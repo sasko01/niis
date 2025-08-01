@@ -50,7 +50,8 @@ class App extends Component {
       case "loggedUserView":
         return <LoggedUserView 
                   QViewFromChild={this.QSetView} 
-                  user={this.state.userStatus.user} />;
+                  user={this.state.userStatus.user}
+                  QIDfromChild={this.QSetView} />;
       default:
         return <HomeView />;
     }
@@ -87,7 +88,7 @@ class App extends Component {
     >
       <div id="APP" className="container">
         <div id="menu" className="row">
-          <nav className="navbar navbar-expand-lg navbar-dark bg-primary">
+          <nav className="navbar navbar-expand-lg navbar-dark bg-dark">
             <div className="container-fluid">
               <a
                 onClick={() => this.QSetView({ page: "home" })}
@@ -139,7 +140,7 @@ class App extends Component {
                       className="nav-link"
                       href="#"
                     >
-                      Add event
+                      Suggest event
                     </a>
                   </li>
                   
@@ -176,9 +177,13 @@ class App extends Component {
               </div>
 
               {this.state.userStatus.logged && this.state.userStatus.user && (
-                  <span className="navbar-text text-white ms-auto">
-                    {this.state.userStatus.user.Ime_priimek}
-                  </span>
+                <a
+                  onClick={() => this.QSetView({ page: "loggedUserView" })}
+                  className="navbar-text text-white ms-auto"
+                  style={{ cursor: "pointer", textDecoration: "underline" }}
+                >
+                  {this.state.userStatus.user.Ime_priimek}
+                </a>
               )}
               
             </div>

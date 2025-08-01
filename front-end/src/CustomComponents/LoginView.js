@@ -99,7 +99,7 @@ class LoginView extends Component {
         <button
           onClick={ this.QPostLogin} // updated za loggedUserView
           style={{ margin: "10px" }}
-          className="btn btn-primary bt"
+          className="btn btn-outline-warning"
         >
           Login 
         </button>

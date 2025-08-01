@@ -109,7 +109,7 @@ class SignUpView extends Component {
         <button
           onClick={() => this.QPostSignUp()}
           style={{ margin: "10px" }}
-          className="btn btn-primary bt"
+          className="btn btn-outline-warning"
         >
           Submit
         </button>

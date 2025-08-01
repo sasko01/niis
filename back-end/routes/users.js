@@ -79,7 +79,8 @@ users.post("/register", async (req, res) => {
                 console.log("New user added")
             }
         } catch (err) {
-
+            console.log(err);
+            res.status(500).send({ success: false, message: "Server error" });
         }
     } else {
         console.log("A field is missing!")
@@ -104,6 +105,41 @@ users.post("/become-member", async (req, res) => {
         console.error("Membership update error:", err);
         res.status(500).send({ success: false, message: "Database error" });
     }
+});
+
+users.post("/create-organization", async (req, res) => {
+    const u_id = req.body.u_id
+    const Ime = req.body.Ime
+    const Tip = req.body.Tip
+    const Druge_info = req.body.Druge_info
+
+    let isOrgComplete = u_id && Ime && Tip && Druge_info
+
+    if(!isOrgComplete) {
+        return res.status(400).send({ success: false, message: "Error: Missing fields!" });
+    }
+    try {
+        await db.addOrganization(u_id, Ime, Tip, Druge_info);
+        res.send({ success: true, message: "Organization created successfully" });
+    } catch (err) {
+        console.error("Organization update error:", err);
+        res.status(500).send({ success: false, message: "Database error" });
+    }    
+});
+
+users.get("/has-organization/:userId", async (req, res) => {
+  const userId = req.params.userId;
+  try {
+    const result = await db.checkIfUserHasDrustvo(userId);
+    if (result.length > 0) {
+      res.send({ hasDrustvo: true, orgName: result[0].Ime });
+    } else {
+      res.send({ hasDrustvo: false });
+    }
+  } catch (err) {
+    console.error(err);
+    res.status(500).send({ message: "Server error" });
+  }
 });
 
 module.exports = users

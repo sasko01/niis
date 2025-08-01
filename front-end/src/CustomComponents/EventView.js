@@ -41,7 +41,7 @@ class EventView extends Component {
                       this.QSetViewInParent({ page: "singleEvent", id: d.d_id })
                     }
                     style={{ margin: "10px" }}
-                    className="btn btn-primary bt"
+                    className="btn btn-outline-warning"
                   >
                     Read more
                   </button>
