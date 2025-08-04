@@ -142,4 +142,32 @@ users.get("/has-organization/:userId", async (req, res) => {
   }
 });
 
+users.post("/reserve", async (req, res) => {
+  const d_id = req.body.d_id
+  const u_id = req.body.u_id
+
+  if (!d_id || !u_id) {
+    return res.status(400).send({ success: false, message: "Missing data." });
+  }
+  try {
+    const result = await db.reserveTicket(d_id, u_id);
+    res.send({ success: true, result });
+  } catch (err) {
+    console.error("Reservation error: ", err);
+    res.status(500).send({ success: false, message: "Failed to reserve ticket." });
+  }
+});
+
+users.get("/reservations/:userId", async (req, res) => {
+  const userId = req.params.userId;
+
+  try {
+    const result = await db.getUserReservations(userId);
+    res.send({ success: true, reservations: result });
+  } catch (err) {
+    console.error("Fetch reservations error:", err);
+    res.status(500).send({ success: false, message: "Server error" });
+  }
+});
+
 module.exports = users

@@ -3,18 +3,24 @@ const { title } = require("process")
 const event = express.Router()
 const db = require('../db/conn')
 
-event.get("/", async (req, res, next) => {
-    try 
-    {
-        let queryResult = await db.allEvents ()
-        res.json(queryResult)
+event.get("/", async (req, res) => {
+  const { accepted } = req.query;
+
+  try {
+    let events;
+    if (accepted === "1") {
+      events = await db.getAcceptedEvents();
+    } else if (accepted === "0") {
+      events = await db.getPendingEvents(); 
+    } else {
+      events = await db.allEvents(); 
     }
-    catch (err) 
-    {
-        console.log(err)
-        res.sendStatus(500)
-    }
-})//allEvents
+    res.send(events);
+  } catch (err) {
+    console.log(err);
+    res.sendStatus(500);
+  }
+});//allEvents accepted/pending
 
 event.get("/:d_id", async (req, res, next) => {
     try 

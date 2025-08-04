@@ -32,7 +32,7 @@ class App extends Component {
     let page = state.currentPage;
     switch (page) {
       case "home":
-        return <HomeView />;
+        return <HomeView QIDfromChild={this.QSetView} />;
       case "about":
         return <AboutView />;
       case "events":
@@ -53,7 +53,7 @@ class App extends Component {
                   user={this.state.userStatus.user}
                   QIDfromChild={this.QSetView} />;
       default:
-        return <HomeView />;
+        return <HomeView QIDfromChild={this.QSetView}/>;
     }
   }; //QgetView
 

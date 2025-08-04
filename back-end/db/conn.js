@@ -14,8 +14,8 @@ dataPool.allEvents = () => {
         conn.query(`SELECT * FROM Dogodek`, (err, res) => {
             if (err) {return reject(err)}
             return resolve(res)
-        })//query
-    })//promise
+        })
+    })
 }//allEvents
 
 dataPool.oneEvent = (d_id) => {
@@ -23,8 +23,8 @@ dataPool.oneEvent = (d_id) => {
         conn.query(`SELECT * FROM Dogodek WHERE d_id = ?`, d_id, (err, res) => {
             if (err) {return reject(err)}
             return resolve(res)
-        })//query
-    })//promise 
+        })
+    }) 
 }//oneEvent
 
 dataPool.createEvent = (Ime_dogodka, Vrsta_dogodka, Datum_in_ura, Lokacija, Druge_info) => {
@@ -33,9 +33,47 @@ dataPool.createEvent = (Ime_dogodka, Vrsta_dogodka, Datum_in_ura, Lokacija, Drug
             VALUES (?,?,?,?,?)`, [Ime_dogodka, Vrsta_dogodka, Datum_in_ura, Lokacija, Druge_info], (err, res) => {
                 if (err) {return reject(err)}
                 return resolve(res)
-        })//query
-    })//promise
-}//createEventAdmin
+        })
+    })
+}//createEvent
+
+dataPool.getAcceptedEvents = () => {
+  return new Promise((resolve, reject) => {
+    conn.query(`SELECT * FROM Dogodek WHERE Sprejet_od_NI = 1`, (err, res) => {
+      if (err) return reject(err);
+      resolve(res);
+    });
+  });
+};//Sprejeti dogodki od NI
+
+dataPool.getPendingEvents = () => {
+  return new Promise((resolve, reject) => {
+    conn.query(`SELECT * FROM Dogodek WHERE Sprejet_od_NI = 0`, (err, res) => {
+      if (err) return reject(err);
+      resolve(res);
+    });
+  });
+};//Dogodki ki niso sprejeti oz niso se sprejeti
+
+dataPool.reserveTicket = (d_id, u_id) => {
+  return new Promise((resolve, reject) => {
+    conn.query(`INSERT INTO Vstopnica (d_id, u_id, Placana_vstopnica, Rezervirana_vstopnica) 
+                VALUES (?, ?, 0, 1)
+                ON DUPLICATE KEY UPDATE Rezervirana_vstopnica = 1`, [d_id, u_id], (err, result) => {
+      if (err) return reject(err);
+      resolve(result);
+    });
+  });
+};
+
+dataPool.getUserReservations = (u_id) => {
+  return new Promise((resolve, reject) => {
+    conn.query(`SELECT d_id FROM Vstopnica WHERE u_id = ? AND Rezervirana_vstopnica = 1`, [u_id], (err, result) => {
+      if (err) return reject(err);
+      resolve(result);
+    });
+  });
+};
 
 //UPORABNIK
 dataPool.authUser = (Email) => {
@@ -43,8 +81,8 @@ dataPool.authUser = (Email) => {
         conn.query(`SELECT * FROM Uporabnik WHERE Email = ?`, Email, (err, res) => {
             if (err) {return reject(err)}
             return resolve(res) 
-        })//query
-    })//promise
+        })
+    })
 }//authUser
 
 dataPool.addUser = (Ime_priimek, Tel_st, Email, Geslo, Lokacija) => {
@@ -53,8 +91,8 @@ dataPool.addUser = (Ime_priimek, Tel_st, Email, Geslo, Lokacija) => {
             VALUES (?,?,?,?,?)`, [Ime_priimek, Tel_st, Email, Geslo, Lokacija],(err, res) => {
             if (err) {return reject(err)}
             return resolve(res)
-        })//query
-    })//promise
+        })
+    })
 }//addUser
 
 dataPool.setUserAsMember = (Email) => {

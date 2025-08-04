@@ -40,6 +40,7 @@ class LoginView extends Component {
     console.log("Sent to the server");
     console.log(res.data);
     if (res.data.success) {
+      localStorage.setItem("u_id", res.data.user.u_id); //hrani u_id na celotni strani: dela z logout?
       this.QSendUser2Parent(res.data.user);
       this.QSetViewInParent({ page: "loggedUserView" });
     } else {
@@ -61,6 +62,7 @@ class LoginView extends Component {
       }
     });
 }
+
 
   render() {
     return (

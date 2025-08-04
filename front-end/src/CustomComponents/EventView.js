@@ -15,7 +15,7 @@ class EventView extends Component {
   }; 
 
   componentDidMount () {
-    axios.get("http://88.200.63.148:3947/event")
+    axios.get("http://88.200.63.148:3947/event?accepted=0")
     .then (res => {
       this.setState ({
         events:res.data
