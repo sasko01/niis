@@ -9,6 +9,7 @@ dotenv.config()
 const port = process.env.PORT || 3947
 const event = require("./routes/event")
 const users = require("./routes/users")
+const comments = require("./routes/comments")
 
 
 
@@ -43,6 +44,7 @@ app.get("/", (req, res) => {
 
 app.use("/event", event)
 app.use("/users", users)
+app.use("/comments", comments)
 
 app.listen(port, () => {
     console.log("Successfully running on port: " + port)

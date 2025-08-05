@@ -116,7 +116,7 @@ QPostSignUp = () => {
                 We're just waiting for your payment: you can do it right now ;) 
               </div>
                 <a
-                  href="https://www.paypal.com/paypalme/YOUR_USERNAME/5"
+                  href="https://www.paypal.com/paypalme/gibmeurmanei/5"
                   target="_blank"
                   rel="noopener noreferrer"
                   className="btn btn-outline-warning"
@@ -129,7 +129,7 @@ QPostSignUp = () => {
             {this.props.user?.Clan === 0 && this.props.user?.PLacana_clanarina === 0 && (
               <>
                 <a
-                  href="https://www.paypal.com/paypalme/YOUR_USERNAME/5"
+                  href="https://www.paypal.com/paypalme/gibmeurmanei/5"
                   target="_blank"
                   rel="noopener noreferrer"
                   className="btn btn-outline-warning"

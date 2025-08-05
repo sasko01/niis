@@ -170,4 +170,33 @@ users.get("/reservations/:userId", async (req, res) => {
   }
 });
 
+users.get("/paid-tickets/:userId", async (req, res) => {
+  const userId = req.params.userId;
+
+  try {
+    const result = await db.getUserPaidEvents(userId);
+    res.send({ success: true, paid: result });
+  } catch (err) {
+    console.error("Fetch paid tickets error:", err);
+    res.status(500).send({ success: false, message: "Server error" });
+  }
+});
+
+users.get("/:userId", async (req, res) => {
+  const userId = req.params.userId;
+
+  try {
+    const result = await db.getUserInfo(userId);
+    if (result.length > 0) {
+      res.send({ success: true, user: result[0] });
+    } else {
+      res.send({ success: false, message: "User not found" });
+    }
+  } catch (err) {
+    console.error("User fetch error:", err);
+    res.status(500).send({ success: false, message: "Server error" });
+  }
+});
+
+
 module.exports = users

@@ -8,7 +8,9 @@ class HomeView extends Component {
     this.state = {
       events: [],
       reservedEvents: [],
-      loggedIn: false
+      paidEvents: [],
+      loggedIn: false,
+      paidMembership: 0
     };
   }
 
@@ -31,8 +33,27 @@ class HomeView extends Component {
               this.setState({ reservedEvents: reservedIds });
             }
           })
+          axios.get(`http://88.200.63.148:3947/users/paid-tickets/${userId}`)
+          .then(res3 => {
+            if (res3.data.success) {
+              const paidIds = res3.data.paid.map(r => r.d_id);
+              this.setState({ paidEvents: paidIds });
+            }
+          })
+          .catch(err => {
+            console.error("Failed to fetch paid tickets:", err);
+          })
           .catch(err => {
             console.error("Failed to fetch reservations:", err);
+          });
+          axios.get(`http://88.200.63.148:3947/users/${userId}`)
+          .then(res4 => {
+            if (res4.data.success && res4.data.user) {
+              this.setState({ paidMembership: res4.data.user.PLacana_clanarina });
+            }
+          })
+          .catch(err => {
+            console.error("Failed to fetch user info:", err);
           });
       } else {
         this.setState({ loggedIn: false, reservedEvents: [] });
@@ -69,20 +90,43 @@ class HomeView extends Component {
     return (
       <div className="card" style={{ margin: "10px" }}>
         <div className="card-body">
-          <h5 className="card-title">Welcome to the Never In site!</h5>
-          <p className="card-text">
-
-          </p>
+          <h5 className="card-title">Welcome to the Never In Website!</h5>
+            <a
+            href="https://www.instagram.com/neverin.trieste/"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="btn btn-outline-danger"
+            style={{ margin: "10px" }}
+            >
+              Follow us on Instagram
+            </a>
+            <a
+            href="https://www.facebook.com/neverin.trieste?locale=it_IT"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="btn btn-outline-primary"
+            style={{ margin: "10px" }}
+            >
+              Follow us on Facebook
+            </a>
+            <p className="card-text">
+              Check out our upcoming events:
+            </p>
         </div>
 
         <br />
 
-        <div className="card border-secondary mb-3" 
+        <div className="card" 
         style={{ margin: "10px", backgroundColor: "rgba(255, 255, 255, 0.1)" }}>
-          {this.state.events.map(d => (
-            <div className="col" key={d.d_id}>
-              <div className="card">
-                <div className="card-body">
+          {this.state.events.map(d => {
+            const isMember = this.state.paidMembership === 1;
+            const price = isMember ? d.Cena_clan : d.Cena;
+            const paypalLink = `https://www.paypal.com/paypalme/gibmeurmanei/${price}`;
+
+            return (
+              <div className="col" key={d.d_id}>
+                <div className="card">
+                  <div className="card-body">
                     {d.Flyer && (
                       <img
                         src={`/images/${d.Flyer}`}
@@ -91,10 +135,12 @@ class HomeView extends Component {
                         style={{ maxHeight: "500px", objectFit: "cover" }}
                       />
                     )}
-                  <h5 className="card-title">{d.Ime_dogodka}</h5>
-                  <p className="card-text">{d.Lokacija}</p>
-                </div>
-                <button
+                    <h5 className="card-title">{d.Ime_dogodka}</h5>
+                    <p className="card-text">Price: €{d.Cena}</p>
+                    <p className="card-text">Price for Never In members: €{d.Cena_clan}</p>
+                  </div>
+
+                  <button
                     onClick={() =>
                       this.QSetViewInParent({ page: "singleEvent", id: d.d_id })
                     }
@@ -104,10 +150,12 @@ class HomeView extends Component {
                     Read more
                   </button>
                   <br />
+
                   {this.state.loggedIn && this.state.reservedEvents.includes(d.d_id) ? (
                     <p style={{ color: "green", fontWeight: "bold", margin: "10px" }}>
-                      You already reserved your ticket for this event! Can't wait to see you :)
-                    </p>) : (
+                      You already reserved your ticket for this event! Pay at the door or now with PayPal:
+                    </p>
+                  ) : (
                     <button
                       onClick={() => this.reserveTicket(d.d_id)}
                       style={{ margin: "10px" }}
@@ -116,9 +164,29 @@ class HomeView extends Component {
                       Reserve your ticket 
                     </button>
                   )}
+                  <br />
+
+                  {this.state.loggedIn && this.state.paidEvents.includes(d.d_id) ? (
+                    <p style={{ color: "green", fontWeight: "bold", margin: "10px" }}>
+                      You already paid your ticket! can't wait to see you at {d.Ime_dogodka} :)
+                    </p>
+                  ) : (
+                    <>
+                      <a
+                        href={paypalLink}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="btn btn-outline-warning"
+                        style={{ margin: "10px" }}
+                      >
+                        Pay now with PayPal
+                      </a>
+                    </>
+                  )}
+                </div>
               </div>
-            </div>
-          ))}
+            );
+          })}
         </div>
 
       </div>

@@ -22,6 +22,16 @@ event.get("/", async (req, res) => {
   }
 });//allEvents accepted/pending
 
+event.get("/past", async (req, res) => {
+  try {
+    const result = await db.getPastEvents();
+    res.send(result);
+  } catch (err) {
+    console.log(err)
+    res.sendStatus(500)
+  }
+});
+
 event.get("/:d_id", async (req, res, next) => {
     try 
     {
@@ -35,6 +45,8 @@ event.get("/:d_id", async (req, res, next) => {
         res.sendStatus(500)
     }
 })//oneEvent
+
+
 
 event.post("/", async (req, res, next) => {
     let Ime_dogodka = req.body.Ime_dogodka

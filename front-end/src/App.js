@@ -34,7 +34,7 @@ class App extends Component {
       case "home":
         return <HomeView QIDfromChild={this.QSetView} />;
       case "about":
-        return <AboutView />;
+        return <AboutView QIDfromChild={this.QSetView} />;
       case "events":
         return <EventView QIDfromChild={this.QSetView} />;
       case "addEvent":
@@ -73,6 +73,14 @@ class App extends Component {
       console.log(res)
     })
   }//za login
+
+  logout = () => {
+  localStorage.removeItem("u_id"); 
+  this.setState({
+    userStatus: { logged: false },
+    currentPage: "home"
+  });
+};
 
   render() {
     console.log(this.state)
@@ -162,9 +170,7 @@ class App extends Component {
                   {this.state.userStatus.logged && (
                     <li className="nav-item">
                       <a
-                        onClick={() =>
-                          this.setState({ userStatus: { logged: false }, currentPage: "home" })
-                        }
+                        onClick={this.logout}
                         className="nav-link"
                         href="#"
                       >

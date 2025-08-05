@@ -26,6 +26,15 @@ class EventView extends Component {
   render() {
     let data = this.state.events
     return (
+      <div className="card" style={{ margin: "10px" }}>
+        <div className="card-body">
+          <p className="card-text">
+            Here you can find all the event suggested by various organizers outside of Never In. 
+            <br/>
+            If you interested in partecipating in any of them you can use the Comments section to get in touch!  
+          </p>
+        </div>
+      <br/>
       <div className="row row-cols-1 row-cols-md-3 g-4" style={{ margin: "10px" }}>
         {data.length > 0 ? 
           data.map (d => {
@@ -52,6 +61,7 @@ class EventView extends Component {
         : 
         "Loading..."}
       </div>
+    </div>
     );
   }
 }

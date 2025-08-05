@@ -39,7 +39,7 @@ dataPool.createEvent = (Ime_dogodka, Vrsta_dogodka, Datum_in_ura, Lokacija, Drug
 
 dataPool.getAcceptedEvents = () => {
   return new Promise((resolve, reject) => {
-    conn.query(`SELECT * FROM Dogodek WHERE Sprejet_od_NI = 1`, (err, res) => {
+    conn.query(`SELECT * FROM Dogodek WHERE Sprejet_od_NI = 1 AND Datum_in_ura > NOW() ORDER BY Datum_in_ura ASC`, (err, res) => {
       if (err) return reject(err);
       resolve(res);
     });
@@ -54,6 +54,37 @@ dataPool.getPendingEvents = () => {
     });
   });
 };//Dogodki ki niso sprejeti oz niso se sprejeti
+
+dataPool.getPastEvents = () => {
+  return new Promise((resolve, reject) => {
+    conn.query(`SELECT * FROM Dogodek WHERE Sprejet_od_NI = 1 AND Datum_in_ura < '2025-08-06 00:00:00' ORDER BY Datum_in_ura DESC`, (err, res) => {
+      if (err) return reject(err);
+      resolve(res);
+    });
+  });
+}
+
+dataPool.getCommentsForEvent = (d_id) => {
+  return new Promise((resolve, reject) => {
+    conn.query(`SELECT k.*, u.Ime_priimek 
+                FROM Komentar k
+                JOIN Uporabnik u ON k.u_id = u.u_id
+                WHERE k.d_id = ?
+                ORDER BY k.Datum_in_ura DESC`, [d_id], (err, res) => {
+      if (err) return reject(err);
+      resolve(res);
+    });
+  });
+};
+
+dataPool.addComment = (u_id, d_id, Tekst) => {
+  return new Promise((resolve, reject) => {
+    conn.query(`INSERT INTO Komentar (u_id, d_id, Tekst, Datum_in_ura) VALUES (?, ?, ?, NOW())`, [u_id, d_id, Tekst], (err, res) => {
+      if (err) return reject(err);
+      resolve(res);
+    });
+  });
+};
 
 dataPool.reserveTicket = (d_id, u_id) => {
   return new Promise((resolve, reject) => {
@@ -75,6 +106,15 @@ dataPool.getUserReservations = (u_id) => {
   });
 };
 
+dataPool.getUserPaidEvents = (u_id) => {
+  return new Promise((resolve, reject) => {
+    conn.query(`SELECT d_id FROM Vstopnica WHERE u_id = ? AND Placana_vstopnica = 1`, [u_id], (err, result) => {
+      if (err) return reject(err);
+      resolve(result);
+    });
+  });
+};
+
 //UPORABNIK
 dataPool.authUser = (Email) => {
     return new Promise ((resolve, reject) => {
@@ -87,7 +127,8 @@ dataPool.authUser = (Email) => {
 
 dataPool.addUser = (Ime_priimek, Tel_st, Email, Geslo, Lokacija) => {
     return new Promise ((resolve, reject) => {
-        conn.query(`INSERT INTO Uporabnik (Ime_priimek, Tel_st, Email, Geslo, Lokacija)
+        conn.query(
+          `INSERT INTO Uporabnik (Ime_priimek, Tel_st, Email, Geslo, Lokacija)
             VALUES (?,?,?,?,?)`, [Ime_priimek, Tel_st, Email, Geslo, Lokacija],(err, res) => {
             if (err) {return reject(err)}
             return resolve(res)
@@ -96,7 +137,7 @@ dataPool.addUser = (Ime_priimek, Tel_st, Email, Geslo, Lokacija) => {
 }//addUser
 
 dataPool.setUserAsMember = (Email) => {
-    return new Promise((resolve, reject) => {
+    return new Promise ((resolve, reject) => {
         conn.query(
             `UPDATE Uporabnik SET Clan = 1 WHERE Email = ?`,
             [Email],
@@ -106,6 +147,17 @@ dataPool.setUserAsMember = (Email) => {
             }
         );
     });
+};
+
+dataPool.getUserInfo = (u_id) => {
+  return new Promise ((resolve, reject) => {
+    conn.query(
+      `SELECT * FROM Uporabnik WHERE u_id=?`, [u_id], (err, res) => {
+        if (err) {return reject(err)}
+        return resolve(res)
+      }
+    )
+  })
 };
 
 dataPool.addOrganization = (u_id, Ime, Tip, Druge_info) => {
