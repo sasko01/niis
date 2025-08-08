@@ -27,6 +27,22 @@ dataPool.oneEvent = (d_id) => {
     }) 
 }//oneEvent
 
+dataPool.oneEventWithOrg = (d_id) => {
+  return new Promise((resolve, reject) => {
+    conn.query(
+      `SELECT d.*, dr.Ime AS dr_ime, dr.Tip AS dr_tip, dr.Druge_info AS dr_info
+      FROM Dogodek d
+      LEFT JOIN Drustvo dr ON d.d_id = dr.d_id
+      WHERE d.d_id = ?`,
+      [d_id],
+      (err, res) => {
+        if (err) return reject(err);
+        resolve(res);
+      }
+    );
+  });
+};
+
 dataPool.createEvent = (Ime_dogodka, Vrsta_dogodka, Datum_in_ura, Lokacija, Druge_info) => {
     return new Promise ((resolve, reject) => {
         conn.query(`INSERT INTO Dogodek (Ime_dogodka, Vrsta_dogodka, Datum_in_ura, Lokacija, Druge_info) 
@@ -39,7 +55,14 @@ dataPool.createEvent = (Ime_dogodka, Vrsta_dogodka, Datum_in_ura, Lokacija, Drug
 
 dataPool.getAcceptedEvents = () => {
   return new Promise((resolve, reject) => {
-    conn.query(`SELECT * FROM Dogodek WHERE Sprejet_od_NI = 1 AND Datum_in_ura > NOW() ORDER BY Datum_in_ura ASC`, (err, res) => {
+    conn.query(`SELECT 
+                d.*, 
+                (d.St_vseh_vstopnic - COUNT(v.v_id)) AS Stevilo_ostalih_vstopnic
+                FROM Dogodek d
+                LEFT JOIN Vstopnica v ON d.d_id = v.d_id
+                WHERE d.Sprejet_od_NI = 1 AND d.Datum_in_ura > NOW()
+                GROUP BY d.d_id
+                ORDER BY d.Datum_in_ura ASC`, (err, res) => {
       if (err) return reject(err);
       resolve(res);
     });
@@ -57,7 +80,7 @@ dataPool.getPendingEvents = () => {
 
 dataPool.getPastEvents = () => {
   return new Promise((resolve, reject) => {
-    conn.query(`SELECT * FROM Dogodek WHERE Sprejet_od_NI = 1 AND Datum_in_ura < '2025-08-06 00:00:00' ORDER BY Datum_in_ura DESC`, (err, res) => {
+    conn.query(`SELECT * FROM Dogodek WHERE Sprejet_od_NI = 1 AND Datum_in_ura < NOW() ORDER BY Datum_in_ura DESC`, (err, res) => {
       if (err) return reject(err);
       resolve(res);
     });

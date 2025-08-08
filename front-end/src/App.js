@@ -8,6 +8,7 @@ import SignUpView from "./CustomComponents/SignUpView";
 import SingleEventView from "./CustomComponents/SingleEventView";
 import LoggedUserView from "./CustomComponents/LoggedUserView";
 import axios from "axios";
+import { withTranslation } from "react-i18next";
 
 import backgroundImage from './images/ni_background.jpg';
 
@@ -26,7 +27,11 @@ class App extends Component {
       currentPage: obj.page,
       event: obj.id || 0,
     });
-  }; //QSetView
+  }; 
+
+  QSetViewInParent = (obj) => {
+    this.props.QIDfromChild(obj);
+  }; 
 
   QGetView = (state) => {
     let page = state.currentPage;
@@ -38,7 +43,14 @@ class App extends Component {
       case "events":
         return <EventView QIDfromChild={this.QSetView} />;
       case "addEvent":
-        return state.userStatus.logged ? <AddEventView QViewFromChild={this.QSetView} /> : "Not logged in";
+        return state.userStatus.logged ? <AddEventView QViewFromChild={this.QSetView}  /> :
+          <div  className="card" style={{ margin: "10px" }}>
+            <div className="card-body">
+              <p className="card-text">
+                You have to be logged in with an organization to suggest events!
+              </p>
+            </div>
+          </div>;
       case "signUp":
         return <SignUpView QUserFromChild={this.QHandleUserLog} />;// QHandleUserLog postalo QSetUser (v TUT)!
       case "login":
@@ -84,6 +96,8 @@ class App extends Component {
 
   render() {
     console.log(this.state)
+    const { t, i18n } = this.props;
+
     return (
       <div
       style={{
@@ -103,7 +117,7 @@ class App extends Component {
                 className="navbar-brand"
                 href="#"
               >
-                Home
+                {t("navbar.home")}
               </a>
               <button
                 className="navbar-toggler"
@@ -128,7 +142,7 @@ class App extends Component {
                       className="nav-link "
                       href="#"
                     >
-                      About
+                      {t("navbar.about")}
                     </a>
                   </li>
 
@@ -138,7 +152,7 @@ class App extends Component {
                       className="nav-link "
                       href="#"
                     >
-                      Events
+                      {t("navbar.events")}
                     </a>
                   </li>
 
@@ -148,7 +162,7 @@ class App extends Component {
                       className="nav-link"
                       href="#"
                     >
-                      Suggest event
+                      {t("navbar.suggestEvent")}
                     </a>
                   </li>
                   
@@ -156,12 +170,12 @@ class App extends Component {
                     <>
                       <li className="nav-item">
                         <a onClick={() => this.QSetView({ page: "signUp" })} className="nav-link" href="#">
-                          Sign up
+                          {t("navbar.signup")}
                         </a>
                       </li>
                       <li className="nav-item">
                         <a onClick={() => this.QSetView({ page: "login" })} className="nav-link" href="#">
-                          Login
+                          {t("navbar.login")}
                         </a>
                       </li>
                     </>
@@ -174,7 +188,7 @@ class App extends Component {
                         className="nav-link"
                         href="#"
                       >
-                        Logout
+                        {t("navbar.logout")}
                       </a>
                     </li>
                   )}
@@ -193,6 +207,18 @@ class App extends Component {
               )}
               
             </div>
+            <div>
+              <button onClick={() => i18n.changeLanguage("si")} className="btn btn-sm btn-outline-light">
+                SL
+              </button>
+              <button onClick={() => i18n.changeLanguage("en")} className="btn btn-sm btn-outline-light">
+                EN
+              </button>
+              <button onClick={() => i18n.changeLanguage("it")} className="btn btn-sm btn-outline-light">
+                IT
+              </button>
+          </div>
+
           </nav>
         </div>
 
@@ -205,4 +231,4 @@ class App extends Component {
   } //render
 } //App
 
-export default App;
+export default withTranslation()(App);

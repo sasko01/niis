@@ -1,5 +1,6 @@
 import { Component } from "react";
 import axios from "axios";
+import { withTranslation } from "react-i18next";
 
 class LoginView extends Component {
 
@@ -65,6 +66,8 @@ class LoginView extends Component {
 
 
   render() {
+    const t = this.props.t;
+
     return (
       <div
         className="card"
@@ -78,7 +81,7 @@ class LoginView extends Component {
       >
         <form style={{ margin: "20px" }}>
           <div className="mb-3">
-            <label className="form-label">Email</label>
+            <label className="form-label">{t("login.email")}</label>
             <input
               onChange={(e) => this.QGetTextFromField(e)}
               name="Email"
@@ -88,7 +91,7 @@ class LoginView extends Component {
             />
           </div>
           <div className="mb-3">
-            <label className="form-label">Password</label>
+            <label className="form-label">{t("login.password")}</label>
             <input
               onChange={(e) => this.QGetTextFromField(e)}
               name="Geslo"
@@ -103,11 +106,11 @@ class LoginView extends Component {
           style={{ margin: "10px" }}
           className="btn btn-outline-warning"
         >
-          Login 
+          {t("login.login")} 
         </button>
       </div>
     );
   }
 }
 
-export default LoginView;
+export default withTranslation()(LoginView);

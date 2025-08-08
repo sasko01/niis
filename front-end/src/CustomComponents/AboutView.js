@@ -1,5 +1,6 @@
 import { Component } from "react";
 import axios from "axios";
+import { withTranslation } from "react-i18next";
 
 class AboutView extends Component {
 
@@ -27,15 +28,18 @@ class AboutView extends Component {
   }
 
   render() {
+    const t = this.props.t;
+
     return (
       <div className="card" style={{ margin: "10px" }}>
         <div className="card-body">
-          <h5 className="card-title">About us</h5>
+          <h5 className="card-title">{t("about.aboutUs")} </h5>
           <p className="card-text">
-            Never In is a no-profit organization from Trieste, Italy.
+            {t("about.niIs")}
             <br/>
-            Here are our past events; if you'd been to any of them, feel free to tell us what you think in the Comments.
-            Your feedback is very important to us and it can really help us to improve in the future! 
+            {t("about.pastEventsDesc")} 
+            <br/>
+            {t("about.contact")}  <strong>neverin.trieste@gmail.com</strong>
           </p>
         </div>
         
@@ -43,7 +47,7 @@ class AboutView extends Component {
 
          <div className="card border-secondary mb-3" 
           style={{ margin: "10px", backgroundColor: "rgba(255, 255, 255, 0.1)" }}>
-          <h5 className="card-header">Past Events</h5>
+          <h5 className="card-header">{t("about.pastEvents")}</h5>
           {this.state.pastEvents.length > 0 ? (
             this.state.pastEvents.map(d => (
               <div className="col" key={d.d_id}>
@@ -67,7 +71,7 @@ class AboutView extends Component {
                     style={{ margin: "10px" }}
                     className="btn btn-outline-warning"
                   >
-                    Read more
+                    {t("about.readMore")}
                   </button>
                 </div>
               </div>
@@ -84,4 +88,5 @@ class AboutView extends Component {
   }
 }
 
-export default AboutView;
+
+export default withTranslation()(AboutView);

@@ -1,0 +1,69 @@
+{
+  "navbar": {
+    "home": "Domov",
+    "about": "O društvu",
+    "events": "Vaši dogodki",
+    "suggestEvent": "Predlagaj dogodek",
+    "signup": "Vpiši se",
+    "login": "Prijava",
+    "logout": "Odjava"
+  },
+  "home": {
+    "welcome": "Dobrodošli na spletni strani društva Never In!",
+    "followIg": "Sledi nam na Instagramu",
+    "followFb": "Sledi nam na Facebooku",
+    "upcomingEvents": "Poglej si naše naslednje dogodke; za katerokoli vprašanje smo ti vedno na voljo!",
+    "price": "Cena:",
+    "priceForMem": "Cena za člane Never In:",
+    "tixLeft": "Listkov je še:",
+    "readMore": "O dogodku",
+    "mustLoginReserve": "Za rezervacijo listka morate biti prijavljeni",
+    "mustLoginPay": "Za plačilo listka morate biti prijavljeni",
+    "soldOut": "Listkov za ta dogodek ni več :(",
+    "alreadyReserved": "Listek za ta dogodek si že rezerviral: plačaj pri vratih ali sedaj preko PayPal-a:",
+    "alreadyPaid": "Listek za ta dogodek si že plačal :)",
+    "reserveTicket": "Rezerviraj listek",
+    "payNow": "Plačaj sedaj s PayPal-om"
+  },
+  "about": {
+    "aboutUs": "O nas",
+    "niIs": "Never In je ne-profitna organizacija iz Trsta.",
+    "pastEventsDesc": "Tu so naši pretekli dogodki; če si bil na kateremkoli lahko deliš tvojo izkušnjo in tvoja mnenja z nami. Vaša mnenja so nam pomembna in nam lahko pomagajo, da se še izboljšamo!",
+    "contact": "Kontaktiraj nas na: ",
+    "pastEvents": "Pretekli dogodki",
+    "readMore": "O dogodku"
+  },
+  "events": {
+    "intro1": "Tu so dogodki, predlagani od drugih organizacij, zunanjih Never In-u. ",
+    "intro2": "Če te zanima sodelovati pri organizaciji, lahko tu pustiš sporočilo!",
+    "readMore": "O dogodku"
+  },
+  "suggestEvent": {
+    "welcomeOrg": "Dobrodošel organizator!",
+    "title": "Naslov dogodka",
+    "location": "Lokacija",
+    "type": "Tip dogodka (npr.: koncert,...)",
+    "date": "Datum dogodka (Opomba: uporabi format leto-mesec-dan ura:min:sek!)",
+    "aboutEvent": "Druge informacije o dogodku",
+    "submit": "Pošlji"
+  },
+  "signup": {
+    "name": "Ime in Priimek",
+    "email": "E-poštni naslov",
+    "tel": "Telefonska številka",
+    "adress": "Naslov",
+    "password": "Geslo",
+    "submit": "Vpiši se"
+  },
+  "login": {
+    "email": "E-poštni naslov",
+    "password": "Geslo",
+    "login": "Prijava"
+  },
+  "singleEvent": {
+    "orgBy": "Organizator: ",
+    "comments": "Komentarji",
+    "noComments":  "Ni še nobenega komentarja. Za komentiranje je potrebna prijava.",
+    "submit": "Oddaj komentar"
+  }
+}

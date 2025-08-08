@@ -1,5 +1,6 @@
 import { Component } from "react";
 import axios from "axios";
+import { withTranslation } from "react-i18next";
 
 class SignUpView extends Component {
   constructor(props) {
@@ -37,6 +38,8 @@ class SignUpView extends Component {
   }
 
   render() {
+    const t = this.props.t;
+
     return (
       <div
         className="card"
@@ -50,7 +53,7 @@ class SignUpView extends Component {
       >
         <form style={{ margin: "20px" }}>
           <div className="mb-3">
-            <label className="form-label">Name and surname</label>
+            <label className="form-label">{t("signup.name")}</label>
             <input
               onChange={(e) => this.QGetTextFromField(e)}
               name="Ime_in_priimek"
@@ -61,7 +64,7 @@ class SignUpView extends Component {
             />
           </div>
           <div className="mb-3">
-            <label className="form-label">Email address</label>
+            <label className="form-label">{t("signup.email")}</label>
             <input
               onChange={(e) => this.QGetTextFromField(e)}
               name="Email"
@@ -75,7 +78,7 @@ class SignUpView extends Component {
             </div>
           </div>
           <div className="mb-3">
-            <label className="form-label">Telephone number</label>
+            <label className="form-label">{t("signup.tel")}</label>
             <input
               onChange={(e) => this.QGetTextFromField(e)}
               name="Tel_st"
@@ -85,7 +88,7 @@ class SignUpView extends Component {
             />
           </div>
           <div className="mb-3">
-            <label className="form-label">Adress</label>
+            <label className="form-label">{t("signup.adress")}</label>
             <input
               onChange={(e) => this.QGetTextFromField(e)}
               name="Lokacija"
@@ -96,7 +99,7 @@ class SignUpView extends Component {
             />
           </div>
           <div className="mb-3">
-            <label className="form-label">Password</label>
+            <label className="form-label">{t("signup.password")}</label>
             <input
               onChange={(e) => this.QGetTextFromField(e)}
               name="Geslo"
@@ -111,11 +114,12 @@ class SignUpView extends Component {
           style={{ margin: "10px" }}
           className="btn btn-outline-warning"
         >
-          Submit
+          {t("signup.submit")}
         </button>
       </div>
     );
   }
 }
 
-export default SignUpView;
+
+export default withTranslation()(SignUpView);

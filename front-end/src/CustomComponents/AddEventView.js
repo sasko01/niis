@@ -1,5 +1,6 @@
 import { Component } from "react";
 import axios from "axios";
+import { withTranslation } from "react-i18next";
 
 class AddEventView extends Component {
 
@@ -32,40 +33,40 @@ class AddEventView extends Component {
   }
 
   render() {
-    console.log(this.state)
+    const t = this.props.t;
     return (
       <div className="card" style={{ margin: "10px" }}>
-        <h3 style={{ margin: "10px" }}>Welcome Organizer!</h3>
+        <h3 style={{ margin: "10px" }}>{t("suggestEvent.welcomeOrg")}</h3>
         <div className="mb-3" style={{ margin: "10px" }}>
-          <label className="form-label">Title</label>
+          <label className="form-label">{t("suggestEvent.title")}</label>
           <input 
           name="Ime_dogodka"
           onChange={(e) => this.QGetTextFromField(e)} 
           type="text" class="form-control" placeholder="Title..." />
         </div>
         <div className="mb-3" style={{ margin: "10px" }}>
-          <label className="form-label">Location</label>
+          <label className="form-label">{t("suggestEvent.location")}</label>
           <input 
           name="Lokacija"
           onChange={(e) => this.QGetTextFromField(e)} 
           type="text" class="form-control" placeholder="Location..." />
         </div>
         <div className="mb-3" style={{ margin: "10px" }}>
-          <label className="form-label">Type of event (e.g. concert)</label>
+          <label className="form-label">{t("suggestEvent.type")}</label>
           <input 
           name="Vrsta_dogodka"
           onChange={(e) => this.QGetTextFromField(e)} 
           type="text" class="form-control" placeholder="Type..." />
         </div>
         <div className="mb-3" style={{ margin: "10px" }}>
-          <label className="form-label">Date of event (Note: use the year-month-day hour:min:sec format!)</label>
+          <label className="form-label">{t("suggestEvent.date")}</label>
           <input 
           name="Datum_in_ura"
           onChange={(e) => this.QGetTextFromField(e)} 
           type="text" class="form-control" placeholder="yyyy-mm-dd hh:mm:ss" />
         </div>
         <div className="mb-3" style={{ margin: "10px" }}>
-          <label className="form-label">About the event</label>
+          <label className="form-label">{t("suggestEvent.aboutEvent")}</label>
           <textarea 
           name="Druge_info"
           onChange={(e) => this.QGetTextFromField(e)} 
@@ -74,11 +75,11 @@ class AddEventView extends Component {
         <button 
         onClick={() => this.QPostEvent()}
         className="btn btn-outline-warning" style={{ margin: "10px" }}>
-          Submit
+          {t("suggestEvent.submit")}
         </button>
       </div>
     );
   }
 }
 
-export default AddEventView;
+export default withTranslation()(AddEventView);

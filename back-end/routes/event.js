@@ -36,7 +36,7 @@ event.get("/:d_id", async (req, res, next) => {
     try 
     {
         console.log(req)
-        let queryResult = await db.oneEvent (req.params.d_id)
+        let queryResult = await db.oneEventWithOrg(req.params.d_id)
         res.json(queryResult)
     }
     catch (err) 

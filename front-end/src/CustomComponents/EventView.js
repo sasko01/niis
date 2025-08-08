@@ -1,5 +1,6 @@
 import { Component } from "react";
 import axios from "axios";
+import { withTranslation } from "react-i18next";
 
 class EventView extends Component {
 
@@ -24,14 +25,15 @@ class EventView extends Component {
   }
 
   render() {
+    const t = this.props.t;
     let data = this.state.events
     return (
       <div className="card" style={{ margin: "10px" }}>
         <div className="card-body">
           <p className="card-text">
-            Here you can find all the event suggested by various organizers outside of Never In. 
+            {t("events.intro1")}
             <br/>
-            If you interested in partecipating in any of them you can use the Comments section to get in touch!  
+            {t("events.intro2")}  
           </p>
         </div>
       <br/>
@@ -52,7 +54,7 @@ class EventView extends Component {
                     style={{ margin: "10px" }}
                     className="btn btn-outline-warning"
                   >
-                    Read more
+                    {t("events.readMore")}
                   </button>
                 </div>
               </div>
@@ -66,4 +68,4 @@ class EventView extends Component {
   }
 }
 
-export default EventView;
+export default withTranslation()(EventView);

@@ -1,0 +1,69 @@
+{
+  "navbar": {
+    "home": "Home",
+    "about": "About us",
+    "events": "Community Events",
+    "suggestEvent": "Suggest event",
+    "signup": "Sign up",
+    "login": "Login",
+    "logout": "Logout"
+  },
+  "home": {
+    "welcome": "Welcome to the Never In Website!",
+    "followIg": "Follow us on Instagram",
+    "followFb": "Follow us on Facebook",
+    "upcomingEvents": "Check out our upcoming events; for any questions we're always here for you :)",
+    "price": "Price:",
+    "priceForMem": "Price for Never In members:",
+    "tixLeft": "Tickets left:",
+    "readMore": "Read more",
+    "mustLoginReserve": "You must be logged in to reserve your ticket!",
+    "mustLoginPay": "You must be logged in to pay for your ticket!",
+    "soldOut": "Tickets are sold out for this event, sorry :(",
+    "alreadyReserved": "You already reserved your ticket for this event! Pay at the door or now with PayPal:",
+    "alreadyPaid": "You already paid your ticket! Can't wait to see you at ",
+    "reserveTicket": "Reserve your ticket",
+    "payNow": "Pay now with PayPal"
+  }, 
+  "about": {
+    "aboutUs": "About us",
+    "niIs": "Never In is a no-profit organization from Trieste, Italy.",
+    "pastEventsDesc": "Here are our past events; if you'd been to any of them, feel free to tell us what you think in the Comments. Your feedback is very important to us and it can really help us to improve in the future!",
+    "contact": "Contact us at: ",
+    "pastEvents": "Past Events",
+    "readMore": "Read more"
+  },
+  "events": {
+    "intro1": "Here you can find all the event suggested by various organizers outside of Never In. ",
+    "intro2": "If you interested in partecipating in any of them you can use the Comments section to get in touch!",
+    "readMore": "Read more"
+  },
+  "suggestEvent": {
+    "welcomeOrg": "Welcome Organizer!",
+    "title": "Title of your event",
+    "location": "Location",
+    "type": "Type of event (e.g. concert,...)",
+    "date": "Date of event (Note: use the year-month-day hour:min:sec format!)",
+    "aboutEvent": "About the event",
+    "submit": "Submit"
+  },
+  "signup": {
+    "name": "Name and surname",
+    "email": "Email address",
+    "tel": "Telephone number",
+    "adress": "Adress",
+    "password": "Password",
+    "submit": "Submit"
+  },
+  "login": {
+    "email": "Email address",
+    "password": "Password",
+    "login": "Login"
+  },
+  "singleEvent": {
+    "orgBy": "Organized by: ",
+    "comments": "Comments",
+    "noComments":  "No comments yet: Login to add a comment.",
+    "submit": "Submit Comment"
+  }
+}

@@ -1,5 +1,6 @@
 import { Component } from "react";
 import axios from "axios";
+import { withTranslation } from "react-i18next";
 
 class SingleEventView extends Component {
 
@@ -60,6 +61,8 @@ class SingleEventView extends Component {
 
   render() {
     let event = this.state.event
+    const t = this.props.t;
+
     return (
       <div className="card" style={{ margin: "10px" }}>
         {event.length > 0 ?
@@ -70,12 +73,21 @@ class SingleEventView extends Component {
           <p className="card-text">
             {event[0].Druge_info}
           </p>
-          
+          {event[0].dr_ime && (
+            <div className="mt-3">
+              <h6>{t("singleEvent.orgBy")}</h6>
+              <p>
+                <strong>{event[0].dr_ime}</strong> <br /> 
+                {event[0].dr_tip} <br />
+                {event[0].dr_info}
+              </p>
+            </div>
+          )}
           </div>
         </div>
         : "Loading..." }
-        
-          <h5 style={{ marginTop: "20px" }}>Comments</h5>
+
+          <h5 style={{ marginTop: "20px" }}>{t("singleEvent.comments")}</h5>
 
           {this.state.comments.length > 0 ? (
             <ul className="list-group">
@@ -87,7 +99,7 @@ class SingleEventView extends Component {
               ))}
             </ul>
           ) : (
-            <p>No comments yet: Login to add a comment.</p>
+            <p>{t("singleEvent.noComments")}</p>
           )}
 
           <br />
@@ -107,7 +119,7 @@ class SingleEventView extends Component {
                 className="btn btn-outline-warning"
                 style={{ marginTop: "10px" }}
               >
-                Submit Comment
+                {t("singleEvent.submit")}
               </button>
             </>
           )}
@@ -117,4 +129,4 @@ class SingleEventView extends Component {
   }
 }
 
-export default SingleEventView;
+export default withTranslation()(SingleEventView);

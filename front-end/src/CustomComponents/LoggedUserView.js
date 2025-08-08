@@ -179,7 +179,7 @@ QPostSignUp = () => {
               />
             </div>
             <div className="mb-3">
-              <label className="form-label">Type (e.g. no profit organization, mladinski klub...)</label>
+              <label className="form-label">Email</label>
               <input
                 onChange={(e) => this.QGetTextFromField(e)}
                 name="Tip"

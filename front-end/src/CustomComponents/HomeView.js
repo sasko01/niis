@@ -1,5 +1,6 @@
 import { Component } from "react";
 import axios from "axios";
+import { withTranslation } from "react-i18next";
 
 class HomeView extends Component {
 
@@ -14,7 +15,7 @@ class HomeView extends Component {
     };
   }
 
-   QSetViewInParent = (obj) => {
+  QSetViewInParent = (obj) => {
     this.props.QIDfromChild(obj);
   }; 
 
@@ -87,10 +88,12 @@ class HomeView extends Component {
  
 
   render() {
+    const t = this.props.t;
+
     return (
       <div className="card" style={{ margin: "10px" }}>
         <div className="card-body">
-          <h5 className="card-title">Welcome to the Never In Website!</h5>
+          <h5 className="card-title">{t("home.welcome")}</h5>
             <a
             href="https://www.instagram.com/neverin.trieste/"
             target="_blank"
@@ -98,7 +101,7 @@ class HomeView extends Component {
             className="btn btn-outline-danger"
             style={{ margin: "10px" }}
             >
-              Follow us on Instagram
+              {t("home.followIg")}
             </a>
             <a
             href="https://www.facebook.com/neverin.trieste?locale=it_IT"
@@ -107,10 +110,10 @@ class HomeView extends Component {
             className="btn btn-outline-primary"
             style={{ margin: "10px" }}
             >
-              Follow us on Facebook
+              {t("home.followFb")}
             </a>
             <p className="card-text">
-              Check out our upcoming events:
+              {t("home.upcomingEvents")}
             </p>
         </div>
 
@@ -122,6 +125,7 @@ class HomeView extends Component {
             const isMember = this.state.paidMembership === 1;
             const price = isMember ? d.Cena_clan : d.Cena;
             const paypalLink = `https://www.paypal.com/paypalme/gibmeurmanei/${price}`;
+            const ticketsLeft = d.St_vseh_vstopnic - d.Stevilo_ostalih_vstopnic;
 
             return (
               <div className="col" key={d.d_id}>
@@ -136,8 +140,9 @@ class HomeView extends Component {
                       />
                     )}
                     <h5 className="card-title">{d.Ime_dogodka}</h5>
-                    <p className="card-text">Price: €{d.Cena}</p>
-                    <p className="card-text">Price for Never In members: €{d.Cena_clan}</p>
+                    <p className="card-text">{t("home.price")} €{d.Cena}</p>
+                    <p className="card-text">{t("home.priceForMem")} €{d.Cena_clan}</p>
+                    <p className="card-text">{t("home.tixLeft")} {d.Stevilo_ostalih_vstopnic}</p>
                   </div>
 
                   <button
@@ -147,31 +152,47 @@ class HomeView extends Component {
                     style={{ margin: "10px" }}
                     className="btn btn-outline-warning"
                   >
-                    Read more
+                    {t("home.readMore")}
                   </button>
                   <br />
 
-                  {this.state.loggedIn && this.state.reservedEvents.includes(d.d_id) ? (
-                    <p style={{ color: "green", fontWeight: "bold", margin: "10px" }}>
-                      You already reserved your ticket for this event! Pay at the door or now with PayPal:
-                    </p>
+                  
+                  {this.state.loggedIn ? (
+                    ticketsLeft <= 0 ? (
+                      <p style={{ color: "red", fontWeight: "bold", margin: "10px" }}>
+                        {t("home.soldOut")}
+                      </p>
+                    ) : this.state.reservedEvents.includes(d.d_id) ? (
+                      <p style={{ color: "green", fontWeight: "bold", margin: "10px" }}>
+                        {t("home.alreadyReserved")}
+                      </p>
+                    ) : (
+                      <button
+                        onClick={() => this.reserveTicket(d.d_id)}
+                        style={{ margin: "10px" }}
+                        className="btn btn-outline-warning"
+                      >
+                        {t("home.reserveTicket")}
+                      </button>
+                    )
                   ) : (
-                    <button
-                      onClick={() => this.reserveTicket(d.d_id)}
-                      style={{ margin: "10px" }}
-                      className="btn btn-outline-warning"
-                    >
-                      Reserve your ticket 
-                    </button>
+                    <p style={{ color: "orange", fontWeight: "bold", margin: "10px" }}>
+                      {t("home.mustLoginReserve")}
+                    </p>
                   )}
+
                   <br />
 
-                  {this.state.loggedIn && this.state.paidEvents.includes(d.d_id) ? (
-                    <p style={{ color: "green", fontWeight: "bold", margin: "10px" }}>
-                      You already paid your ticket! can't wait to see you at {d.Ime_dogodka} :)
-                    </p>
-                  ) : (
-                    <>
+                  {this.state.loggedIn ? (
+                    ticketsLeft <= 0 ? (
+                      <p style={{ color: "red", fontWeight: "bold", margin: "10px" }}>
+                        {t("home.soldOut")}
+                      </p>
+                    ) : this.state.paidEvents.includes(d.d_id) ? (
+                      <p style={{ color: "green", fontWeight: "bold", margin: "10px" }}>
+                        {t("home.alreadyPaid")} {d.Ime_dogodka} :)
+                      </p>
+                    ) : (
                       <a
                         href={paypalLink}
                         target="_blank"
@@ -179,10 +200,15 @@ class HomeView extends Component {
                         className="btn btn-outline-warning"
                         style={{ margin: "10px" }}
                       >
-                        Pay now with PayPal
+                        {t("home.payNow")}
                       </a>
-                    </>
+                    )
+                  ) : (
+                    <p style={{ color: "orange", fontWeight: "bold", margin: "10px" }}>
+                      {t("home.mustLoginPay")}
+                    </p>
                   )}
+
                 </div>
               </div>
             );
@@ -197,4 +223,4 @@ class HomeView extends Component {
   }
 }
 
-export default HomeView;
+export default withTranslation()(HomeView);
