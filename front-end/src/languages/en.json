@@ -56,7 +56,7 @@
     "submit": "Submit"
   },
   "login": {
-    "email": "Email address",
+    "email": "Email",
     "password": "Password",
     "login": "Login"
   },
@@ -65,5 +65,28 @@
     "comments": "Comments",
     "noComments":  "No comments yet: Login to add a comment.",
     "submit": "Submit Comment"
+  },
+  "loggedUser": {
+    "welcome": "Welcome ",
+    "title": "Become a Never In member",
+    "becomeMem": "By becoming a Never In member you can enjoy exclusive discounts for our events and sometimes also other surprises ;)",
+    "cost": "Cost: 5€/year",
+    "payMem": "You can pay online using PayPal or at our next event; you'll become a member once we confirm the payment.",
+    "alreadyMem": "You're already a Never In member! Hope to see you at our next event :)",
+    "waitingPayment":"We're just waiting for your payment: you can do it right now ;)",
+    "payPal": "Complete Payment with PayPal",
+    "payNow": "Pay now",
+    "payAtEvent": "Pay at our next event",
+    "memCard": "Your membership card will be waiting for you at our next event!",
+    "partOfOrg": "Are you part of an organization and want some help?",
+    "submitOrgInfo": " Submit your info and you can suggest your own ideas to Never In, or you can connect with other realities and help each other out!",
+    "name": "Name of organization",
+    "email": "Email",
+    "info": "Other info (attach your links)",
+    "submit": "Submit",
+    "orgRegistered":"You’ve registered your organization: ",
+    "suggestYourEvent": "Now you can suggest us your event or connect with others to create something unique!",
+    "suggestEvent": "Suggest Event",
+    "connect": "Connect with others"
   }
 }

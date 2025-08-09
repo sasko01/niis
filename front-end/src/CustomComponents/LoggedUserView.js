@@ -1,5 +1,6 @@
 import { Component } from "react";
 import axios from "axios";
+import { withTranslation } from "react-i18next";
 
 class LoggedUserView extends Component {
 
@@ -80,12 +81,14 @@ QPostSignUp = () => {
 
 
   render() {
+    const t = this.props.t;
+    
     return (
     <div>
         <div className="card" style={{ margin: "10px" }}>
             <div className="card-body">
                 <h2 className="card-title">
-                    Welcome, {this.props.user?.Ime_priimek}!
+                    {t("loggedUser.welcome")} , {this.props.user?.Ime_priimek}!
                 </h2>
             </div>
         </div>
@@ -93,27 +96,26 @@ QPostSignUp = () => {
 
         <div className="card" style={{ margin: "10px" }}>
             <div className="card-body">
-                <h5 className="card-title">Become a Never In member</h5>
+                <h5 className="card-title">{t("loggedUser.title")}</h5>
                     <p className="card-text">
-                        By becoming a Never In member you can enjoy 
-                        exclusive discounts for our events, get early access to 
-                        tickets and sometimes also other surprises ;) <br />
-                        <strong>Cost: 5€/year</strong> <br />
-                        You can pay online using PayPal or at our next event; 
-                        you'll become a member once we confirm the payment.  
+                        {t("loggedUser.becomeMem")} 
+                        <br />
+                        <strong>{t("loggedUser.cost")}</strong> 
+                        <br />
+                        {t("loggedUser.payMem")} 
                     </p>
             </div>
 
             {this.props.user?.Clan === 1 && this.props.user?.PLacana_clanarina === 1 && (
               <div className="alert alert-success">
-                You're already a Never In member! Hope to see you at our next event :)
+                {t("loggedUser.alreadyMem")}
               </div>
             )}
 
             {this.props.user?.Clan === 1 && this.props.user?.PLacana_clanarina === 0 && (
               <>
               <div className="alert alert-success">
-                We're just waiting for your payment: you can do it right now ;) 
+                {t("loggedUser.waitingPayment")}
               </div>
                 <a
                   href="https://www.paypal.com/paypalme/gibmeurmanei/5"
@@ -121,7 +123,7 @@ QPostSignUp = () => {
                   rel="noopener noreferrer"
                   className="btn btn-outline-warning"
                 >
-                  Complete Payment with PayPal
+                  {t("loggedUser.payPal")}
                 </a>
               </>
             )}
@@ -134,7 +136,7 @@ QPostSignUp = () => {
                   rel="noopener noreferrer"
                   className="btn btn-outline-warning"
                 >
-                  Pay now
+                  {t("loggedUser.payNow")}
                 </a>
 
                 <button
@@ -142,12 +144,12 @@ QPostSignUp = () => {
                   className="btn btn-outline-warning"
                   disabled={this.state.showMembershipMessage}
                 >
-                  Pay at our next event
+                  {t("loggedUser.payAtEvent")}
                 </button>
 
                 {this.state.showMembershipMessage && (
                   <div className="alert alert-success mt-3">
-                    Your membership card will be waiting for you at our next event!
+                    {t("loggedUser.memCard")}
                   </div>
                 )}
               </>
@@ -160,15 +162,14 @@ QPostSignUp = () => {
         {!this.state.hasDrustvo && (
           <div className="card" style={{ margin: "10px" }} > 
             <div className="card-body">
-                <h5 className="card-title">Are you part of an organization and want some help?</h5>
+                <h5 className="card-title">{t("loggedUser.partOfOrg")}</h5>
                   <p className="card-text">
-                        Submit your info and you can suggest your own ideas to Never In, or you can connect with 
-                        other realities and help each other out!
+                        {t("loggedUser.submitOrgInfo")}
                   </p>
             </div>
           <form style={{ margin: "20px" }}>
             <div className="mb-3">
-              <label className="form-label">Name</label>
+              <label className="form-label">{t("loggedUser.name")}</label>
               <input
                 onChange={(e) => this.QGetTextFromField(e)}
                 name="Ime"
@@ -179,7 +180,7 @@ QPostSignUp = () => {
               />
             </div>
             <div className="mb-3">
-              <label className="form-label">Email</label>
+              <label className="form-label">{t("loggedUser.email")}</label>
               <input
                 onChange={(e) => this.QGetTextFromField(e)}
                 name="Tip"
@@ -190,7 +191,7 @@ QPostSignUp = () => {
               />
             </div>
             <div className="mb-3">
-              <label className="form-label">Other info (attach your links)</label>
+              <label className="form-label">{t("loggedUser.info")}</label>
               <textarea 
                 name="Druge_info"
                 onChange={(e) => this.QGetTextFromField(e)} 
@@ -203,7 +204,7 @@ QPostSignUp = () => {
             style={{ margin: "10px" }}
             className="btn btn-outline-warning"
           >
-            Submit
+            {t("loggedUser.submit")}
           </button>
         </div>
       )}
@@ -211,17 +212,17 @@ QPostSignUp = () => {
       {this.state.hasDrustvo && (
         <div className="card" style={{ margin: "10px" }}>
           <div className="card-body">
-            <h5 className="card-title"> You’ve registered your organization: {this.state.orgName} </h5>
+            <h5 className="card-title"> {t("loggedUser.orgRegistered")} {this.state.orgName} </h5>
               <br />
                 <p className="card-text">
-                  Now you can suggest us your event or connect with others to create something unique! 
+                  {t("loggedUser.suggestYourEvent")} 
                 </p>
                 <button
                   onClick={() =>
                   this.QSetViewInParent({ page: "addEvent"})}
                   className="btn btn-outline-warning"
                 >
-                  Suggest Event
+                  {t("loggedUser.suggestEvent")}
                 </button>
                 <br />
                 <br />
@@ -230,7 +231,7 @@ QPostSignUp = () => {
                   this.QSetViewInParent({ page: "events"})}
                   className="btn btn-outline-warning"
                 >
-                  Connect with others
+                  {t("loggedUser.connect")}
                 </button>
         </div>
       </div>
@@ -242,4 +243,4 @@ QPostSignUp = () => {
   }
 }
 
-export default LoggedUserView;
+export default withTranslation()(LoggedUserView);

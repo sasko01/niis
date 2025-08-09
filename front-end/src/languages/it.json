@@ -65,5 +65,28 @@
     "comments": "Commenti",
     "noComments":  "Non ci sono ancora commenti. Per commentare devi aver eseguito l'accesso.",
     "submit": "Commenta"
+  },
+  "loggedUser": {
+    "welcome": "Benvenuto ",
+    "title": "Diventa socio Never In",
+    "becomeMem": "Diventando socio Never In potrai usufruire di sconti esclusivi per i nostri eventi e a volte anche di altre sorprese ;)",
+    "cost": "Prezzo: 5€/anno",
+    "payMem": "Puoi pagare online tramite PayPal o al nostro prossimo evento; diventerai membro non appena confermeremo il pagamento.",
+    "alreadyMem": "Sei già un membro di Never In! Speriamo di vederti al nostro prossimo evento. :)",
+    "waitingPayment":"Aspettiamo solo il tuo pagamento: puoi farlo subito ;)",
+    "payPal": "Complete Payment with PayPal",
+    "payNow": "Paga subito",
+    "payAtEvent": "Paga al prossimo evento",
+    "memCard": "La tua tessera di Never In ti aspetterà al nostro prossimo evento!",
+    "partOfOrg": "Fai parte di un'organizzazione e vorresti aiuto??",
+    "submitOrgInfo": " Invia le tue informazioni e potrai suggerire le tue idee a Never In, oppure puoi entrare in contatto con altre realtà e aiutarvi a vicenda!",
+    "name": "Nome dell'organizzazione",
+    "email": "Email",
+    "info": "Altre informazioni (allega i link)",
+    "submit": "Registra l'organizzazione",
+    "orgRegistered":"Hai registrato la tua organizzazione: ",
+    "suggestYourEvent": "Ora puoi suggerirci il tuo evento o metterti in contatto con altri per creare qualcosa di unico!",
+    "suggestEvent": "Suggerisci il tuo evento",
+    "connect": "Connettiti con altre organizzazioni"
   }
 }

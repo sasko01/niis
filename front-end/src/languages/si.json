@@ -65,5 +65,28 @@
     "comments": "Komentarji",
     "noComments":  "Ni še nobenega komentarja. Za komentiranje je potrebna prijava.",
     "submit": "Oddaj komentar"
+  },
+  "loggedUser": {
+    "welcome": "Dobrodošel ",
+    "title": "Postani član Never In-a",
+    "becomeMem": "Če postaneš član Never In, lahko uživaš v ekskluzivnih popustih za naše dogodke in včasih tudi v kakem drugem presenečenju. ;)",
+    "cost": "Cena: 5€/leto",
+    "payMem": "Plačaš lahko prek spleta s PayPalom ali na našem naslednjem dogodku; član boš postal, takoj ko potrdimo plačilo.",
+    "alreadyMem": "Si že član društva Never In! Upamo, da se vidimo na našem naslednjem dogodku :)",
+    "waitingPayment":"Čakamo samo še na plačilo: lahko plačate kar takoj ;)",
+    "payPal": "Doponi plačilo s PayPal-om",
+    "payNow": "Plačaj sedaj s PayPal-om",
+    "payAtEvent": "Plačaj na naslednjem dogodku",
+    "memCard": "Tvoja članska izkaznica te bo čakala na našem naslednjem dogodku!",
+    "partOfOrg": "Si del organizacije in potrebujete pomoč?",
+    "submitOrgInfo": "Pošljite svoje podatke in lahko društvu Never In predlagate svoje ideje ali pa se povežete z drugimi organizacijami in si pomagate med seboj!",
+    "name": "Ime društva",
+    "email": "E-naslov",
+    "info": "Druge informacije (pripnite svoje povezave)",
+    "submit": "Pošlji",
+    "orgRegistered":"Registriral si svojo organizacijo:",
+    "suggestYourEvent": "Zdaj nam lahko predlagate svoj dogodek ali se povežete z drugimi, da ustvarite nekaj edinstvenega!",
+    "suggestEvent": "Predlagaj dogodek",
+    "connect": "Poveži se z drugimi"
   }
 }
