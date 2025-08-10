@@ -16,13 +16,13 @@ class SingleEventView extends Component {
   
 
   componentDidMount () {
-    axios.get("http://88.200.63.148:3947/event/" + this.props.data)
+    axios.get("/event/" + this.props.data)
     .then(res => {
       this.setState ({
         event:res.data
       })
     })
-    axios.get(`http://88.200.63.148:3947/comments/${this.props.data}`)
+    axios.get(`/comments/${this.props.data}`)
     .then(res2 => {
       this.setState({ comments: res2.data });
     })
@@ -43,13 +43,13 @@ class SingleEventView extends Component {
     alert("Comment cannot be empty.");
     return;
   }
-  axios.post("http://88.200.63.148:3947/comments", {
+  axios.post("/comments", {
     u_id: userId,
     d_id: this.props.data,
     Tekst: newComment
   })
   .then(() => {
-    return axios.get(`http://88.200.63.148:3947/comments/${this.props.data}`);
+    return axios.get(`/comments/${this.props.data}`);
   })
   .then(res => {
     this.setState({ comments: res.data, newComment: "" });

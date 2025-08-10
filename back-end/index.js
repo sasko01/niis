@@ -3,7 +3,9 @@ const app = express()
 const dotenv = require("dotenv")
 const cors = require("cors")
 const cookieParser = require("cookie-parser")
-const session = require("express-session");//dodal
+const session = require("express-session")
+const path = require("path")
+
 dotenv.config()
 
 const port = process.env.PORT || 3947
@@ -13,7 +15,7 @@ const comments = require("./routes/comments")
 
 
 
-
+app.use(express.static(path.join(__dirname, "build")))
 app.use(cookieParser("somesecret"))
 app.use(express.json())
 app.use(express.urlencoded({extended: true}))
@@ -39,7 +41,7 @@ app.use(session({
 
 
 app.get("/", (req, res) => {
-    res.send("Hello and welcome to the Never In website!")
+    res.sendFile(path.join(__dirname, "build", "index.html"))
 })
 
 app.use("/event", event)

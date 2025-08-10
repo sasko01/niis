@@ -209,7 +209,7 @@ class App extends Component {
             </div>
             <div>
               <button onClick={() => i18n.changeLanguage("si")} className="btn btn-sm btn-outline-light">
-                SL
+                SI
               </button>
               <button onClick={() => i18n.changeLanguage("en")} className="btn btn-sm btn-outline-light">
                 EN

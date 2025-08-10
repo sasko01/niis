@@ -1,0 +1,11 @@
+{
+  "files": {
+    "main.js": "/static/js/main.468bd1f4.js",
+    "static/media/ni_background.jpg": "/static/media/ni_background.4c205ca04c92aaf5af5a.jpg",
+    "index.html": "/index.html",
+    "main.468bd1f4.js.map": "/static/js/main.468bd1f4.js.map"
+  },
+  "entrypoints": [
+    "static/js/main.468bd1f4.js"
+  ]
+}

@@ -17,7 +17,7 @@ constructor(props) {
 }
 
 handlePayLaterClick = () => {
-  axios.post("http://88.200.63.148:3947/users/become-member", {
+  axios.post("/users/become-member", {
     Email: this.props.user.Email
   }, { withCredentials: true })
   .then(res => {
@@ -42,7 +42,7 @@ QPostSignUp = () => {
   const { Ime, Tip, Druge_info } = this.state.org;
   const u_id = this.props.user?.u_id;
 
-  axios.post("http://88.200.63.148:3947/users/create-organization", {
+  axios.post("/users/create-organization", {
     u_id,
     Ime,
     Tip,
@@ -64,7 +64,7 @@ QPostSignUp = () => {
   componentDidMount() {
     if (this.props.user?.u_id) {
       axios
-        .get(`http://88.200.63.148:3947/users/has-organization/${this.props.user.u_id}`)
+        .get(`/users/has-organization/${this.props.user.u_id}`)
         .then((res) => {
           this.setState({ 
             hasDrustvo: res.data.hasDrustvo,

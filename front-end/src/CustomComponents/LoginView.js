@@ -33,7 +33,7 @@ class LoginView extends Component {
   
   QPostLogin = () => {
   let user = this.state.user;
-  axios.post("http://88.200.63.148:3947/users/login", {
+  axios.post("/users/login", {
     Email: user.Email,
     Geslo: user.Geslo
   }, { withCredentials: true })
@@ -55,7 +55,7 @@ class LoginView extends Component {
 } //updated za loggedUserView 
 
   componentDidMount() {
-  axios.get("http://88.200.63.148:3947/users/login", { withCredentials: true })
+  axios.get("/users/login", { withCredentials: true })
     .then(res => {
       console.log("Checked login status:", res.data);
       if (res.data.logged) {

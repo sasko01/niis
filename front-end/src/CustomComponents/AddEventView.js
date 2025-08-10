@@ -18,7 +18,7 @@ class AddEventView extends Component {
   };
 
   QPostEvent = () => {
-    axios.post("http://88.200.63.148:3947/event", {
+    axios.post("/event", {
       Ime_dogodka: this.state.event.Ime_dogodka,
       Lokacija: this.state.event.Lokacija,
       Vrsta_dogodka: this.state.event.Vrsta_dogodka,
@@ -34,6 +34,7 @@ class AddEventView extends Component {
 
   render() {
     const t = this.props.t;
+    
     return (
       <div className="card" style={{ margin: "10px" }}>
         <h3 style={{ margin: "10px" }}>{t("suggestEvent.welcomeOrg")}</h3>

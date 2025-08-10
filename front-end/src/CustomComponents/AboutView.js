@@ -17,7 +17,7 @@ class AboutView extends Component {
 
 
   componentDidMount() {
-   axios.get("http://88.200.63.148:3947/event/past")
+   axios.get("/event/past")
     .then(res => {
       console.log("Received past events:", res.data); 
       this.setState({ pastEvents: res.data });

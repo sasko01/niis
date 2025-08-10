@@ -20,21 +20,21 @@ class HomeView extends Component {
   }; 
 
   componentDidMount() {
-  axios.get("http://88.200.63.148:3947/event?accepted=1")
+  axios.get("/event?accepted=1")
     .then(res => {
       this.setState({ events: res.data });
 
       const userId = localStorage.getItem("u_id");
       if (userId && userId !== "null" && userId !== "undefined") {
         this.setState({ loggedIn: true });
-        axios.get(`http://88.200.63.148:3947/users/reservations/${userId}`)
+        axios.get(`/users/reservations/${userId}`)
           .then(res2 => {
             if (res2.data.success) {
               const reservedIds = res2.data.reservations.map(r => r.d_id);
               this.setState({ reservedEvents: reservedIds });
             }
           })
-          axios.get(`http://88.200.63.148:3947/users/paid-tickets/${userId}`)
+          axios.get(`/users/paid-tickets/${userId}`)
           .then(res3 => {
             if (res3.data.success) {
               const paidIds = res3.data.paid.map(r => r.d_id);
@@ -47,7 +47,7 @@ class HomeView extends Component {
           .catch(err => {
             console.error("Failed to fetch reservations:", err);
           });
-          axios.get(`http://88.200.63.148:3947/users/${userId}`)
+          axios.get(`/users/${userId}`)
           .then(res4 => {
             if (res4.data.success && res4.data.user) {
               this.setState({ paidMembership: res4.data.user.PLacana_clanarina });
@@ -68,7 +68,7 @@ class HomeView extends Component {
     alert("You must be logged in to reserve a ticket.");
     return;
   }
-  axios.post("http://88.200.63.148:3947/users/reserve", {
+  axios.post("/users/reserve", {
     d_id: eventId,
     u_id: userId
   })

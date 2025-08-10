@@ -24,7 +24,7 @@ class SignUpView extends Component {
 
   QPostSignUp = () => {
     let user = this.state.user
-    axios.post("http://88.200.63.148:3947/users/register", {
+    axios.post("/users/register", {
       Ime_in_priimek: user.Ime_in_priimek,
       Email: user.Email,
       Tel_st: user.Tel_st,
